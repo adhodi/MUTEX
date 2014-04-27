@@ -1,0 +1,25 @@
+{
+    "name": "Mutex_Tokens",
+    "title": "jQuery Mutex:Token System",
+    "description": "jQuery plugin for mutex.Token is provided to process and token must be released so that other process could use the resource",
+    "keywords": [
+        "Mutex",
+        "Synchronisation"
+    ],
+    "version": "0.1.0",
+    "author": {
+        "name": "Abhinandan Dhodi"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/adhodi/MUTEX/LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/adhodi/MUTEX/issues",
+    "homepage": "https://github.com/adhodi/MUTEX",
+    "docs": "https://github.com/adhodi/MUTEX",
+    "dependencies": {
+        "jquery": ">=1.4"
+    }
+}
