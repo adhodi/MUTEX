@@ -6,10 +6,13 @@ Mutual exclusion by process to wait for resource like browser screen until its r
 First you need to bind mutex to the object,say you have multiple time dependent popups, that are independent of each other,
 None knows if other is visible or not (demo2.html), in order to synchronise, first initialize the object ,in this case,window
 using
-                        $().mutex(screen);
+
+                        $().mutex(window);
 
 now, screen object has new property known as _mutex, which provides three services :
+
 isTokenAvailable  : return boolean, if resource is available or not
+
 getToken          : returns process id, one must store this id, as only using this, we can release the token. Pass in the function
                     to getToken which will be executed once the token becomes available.
 
