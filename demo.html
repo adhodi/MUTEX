@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style type="text/css">
+        #mydiv {
+            height: 50px;
+            width: 50px;
+            background-color: red;
+            -webkit-transition: all 1px ease-out;
+            -moz-transition: all 1px ease-out;
+            -ms-transition: all 1px ease-out;
+            transition: all 1px ease-out;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="mydiv">
+     click
+</div>
+
+<script src="jquery.js"></script>
+<script type="text/javascript" src="mutex.js"></script>
+<script type="text/javascript">
+    var $mydiv = $("#mydiv");
+    var mydiv = $mydiv.get(0);
+    $().mutex(mydiv);
+    $mydiv.bind("click",function(){
+        if(!!pid){
+            mydiv._mutex.releaseToken(pid);
+            pid=undefined;
+        }
+    })
+    var pid;
+    var a = setInterval(function () {
+        if (mydiv._mutex.isTokenAvailable()) {
+            pid = mydiv._mutex.getToken(function () {
+                clearInterval(a);
+                console.log("executing a");
+                $mydiv.css({backgroundColor: "green"});
+            });
+        }
+    }, 2000);
+    var b = setInterval(function () {
+        if (mydiv._mutex.isTokenAvailable()) {
+            pid = mydiv._mutex.getToken(function () {
+                clearInterval(b);
+                console.log("executing b");
+                $mydiv.css({backgroundColor: "blue"});
+            });
+        }
+    }, 3000);
+    var c = setInterval(function () {
+        if (mydiv._mutex.isTokenAvailable()) {
+            pid = mydiv._mutex.getToken(function () {
+                clearInterval(c);
+                console.log("executing c");
+                $mydiv.css({backgroundColor: "black"});
+            });
+        }
+    }, 1000);
+    var d = setInterval(function () {
+        if (mydiv._mutex.isTokenAvailable()) {
+            pid = mydiv._mutex.getToken(function () {
+                clearInterval(d);
+                console.log("executing d");
+                $mydiv.css({backgroundColor: "aqua"});
+            });
+        }
+    }, 4000);
+
+</script>
+</body>
+</html>
