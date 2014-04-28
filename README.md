@@ -1,22 +1,36 @@
 MUTEX
 =====
 
-Mutual exclusion by process to wait for resource like browser screen until its released by the process that currently holds the token.
+A process/task/function is assigned a token, this token is the pass for process to start its execution. The idea is to replicate
+MUTEX functionality in javascript.
+Suppose you have 4 timeouts as mentioned in demo2.html, now this timeouts shows a popup, so in this case the resource they all want
+is window, we need to synchronize the functionality that no two popups ever overlap, either, popups must buffer or timeout starts from the
+beginning.
+Start with attaching mutex to your shared resource, in this case window
 
-First you need to bind mutex to the object,say you have multiple time dependent popups, that are independent of each other,
-None knows if other is visible or not (demo2.html), in order to synchronise, first initialize the object ,in this case,window
-using
+                        $.mutex(window);
 
-                        $().mutex(window);
+now, window object has new property known as _mutex, which provides three services :
 
-now, screen object has new property known as _mutex, which provides three services :
+isTokenAvailable
+----------------
 
-isTokenAvailable  : return boolean, if resource is available or not
+return boolean, if resource is available or not
 
-getToken          : returns process id, one must store this id, as only using this, we can release the token. Pass in the function
-                    to getToken which will be executed once the token becomes available.
 
-releaseToken      : releases the resource. Also it is recommended to assign the id to undefined after calling releaseToken.
+
+getToken
+--------
+
+returns process id, one must store this id, as only using this, we can release the token.
+This api accepts the function as parameter,if token is available, the function executes right away, else will be queued.
+Its important to store returned processid, as it is the only pass to release the resource now.
+
+releaseToken
+------------
+
+
+releases the resource. Also it is recommended to assign the id to undefined after calling releaseToken.
 
                         if (screen._mutex.isTokenAvailable()) {
                             pida = screen._mutex.getToken(function () {

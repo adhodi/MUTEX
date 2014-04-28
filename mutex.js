@@ -111,7 +111,7 @@
     Queue.prototype.isEmpty = function () {
         return this.getStorage().length === 0;
     };
-    $.fn.mutex = function (resource) {
+    $.mutex = function (resource) {
             if (!!resource && !resource._mutex) {
                 initializeToken(resource);
             }

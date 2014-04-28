@@ -25,7 +25,7 @@
 <script type="text/javascript">
     var $mydiv = $("#mydiv");
     var mydiv = $mydiv.get(0);
-    $().mutex(mydiv);
+    $.mutex(mydiv);
     $mydiv.bind("click",function(){
         if(!!pid){
             mydiv._mutex.releaseToken(pid);
